@@ -1,16 +1,16 @@
 FROM python:3.11-slim-bullseye
 
 ARG APP_DIR="/app"
-ARG UID=10000
-ARG GID=10000
+ARG UID=1010
+ARG GID=1010
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc curl \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
     && apt-get clean \
-    && mkdir -p /opt{APP_DIR} \
-    && groupadd -g {GID} python  \
-    && useradd -d /opt${APP_DIR} -r -u {UID} -g python python \
+    && mkdir -p /opt${APP_DIR} \
+    && groupadd -g ${GID} python  \
+    && useradd -d /opt${APP_DIR} -r -u ${UID} -g python python \
     && chown python. /opt${APP_DIR}
 
 USER python

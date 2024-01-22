@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+
+  flask:
+    container_name: flask
+    build:
+      context: .
+    image: flask:latest
+    env_file:
+      - ./instance/.env
+    ports:
+      -  ${FLASK_PORT:-5005}:5000
+    volumes:
+      - ./instance:/home/app/instance
+    command: api
