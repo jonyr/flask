@@ -5,7 +5,7 @@ ARG UID=1010
 ARG GID=1010
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc curl \
+    && apt-get install -y --no-install-recommends gcc curl git \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
     && apt-get clean \
     && mkdir -p /opt${APP_DIR} \
@@ -15,7 +15,7 @@ RUN apt-get update \
 
 USER python
 
-WORKDIR /opt{APP_DIR}
+WORKDIR /opt${APP_DIR}
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -25,7 +25,7 @@ COPY --chown=python:python requirements.txt .
 RUN pip install --no-warn-script-location --upgrade pip wheel setuptools \
     && pip install --no-warn-script-location --user --no-cache -r requirements.txt
 
-ENV PATH="/opt{APP_DIR}/.local/bin:$PATH"
+ENV PATH="/opt${APP_DIR}/.local/bin:$PATH"
 
 COPY --chown=python:python . .
 

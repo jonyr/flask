@@ -1,1 +1,1 @@
-from .healthcheck import healthcheck_bp
+from src.app.routes.healthcheck import healthcheck_bp
